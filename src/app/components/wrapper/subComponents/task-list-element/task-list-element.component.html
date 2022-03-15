@@ -1,9 +1,22 @@
 <div *ngIf="task" class="container">
-  <div class="data-container">
-    <span class="task-name">{{task.name}}</span>
-    <span>{{task.creationDate}}</span>
-    <span>Priority: {{task.priority}}</span>
-    <span>{{task.id}}</span>
-  </div>
-  <button (click)="taskDone()" class="icon-btn"><img class="icon" src="./assets/images/done.svg" alt="done icon"></button>
+
+  <mat-accordion class="example-headers-align" multi>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{task.name}}
+        </mat-panel-title>
+        <mat-panel-description>
+          Priority: {{task.priority}}
+          <mat-icon (click)="taskDone()">done</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="data-container">
+        <span>{{task.creationDate}}</span>
+        <span>{{task.id}}</span>
+      </div>
+    </mat-expansion-panel>
+
+
+  </mat-accordion>
 </div>
