@@ -12,16 +12,32 @@ export class Task {
   priority: number;
   repeat?: number;
 
-  constructor(name: string, priority: number = 0){
+  constructor(id: string ,name: string, priority: number = 0, creationDate?: number){
     this.name = name;
-    this.priority = priority;
-    this.creationDate = new Date();
-    this.id = name.split(" ")[0] + Task.generateRandom();
+    this.priority = Task.getFirstNumber(priority);
+    if (creationDate) {
+      this.creationDate = new Date(creationDate);
+    } else {
+      this.creationDate = new Date();
+    }
+    this.id = id
   }
 
-  static generateRandom(): number{
-    return Math.floor(Math.random() * 1000000);
+  static getFirstNumber(fullNumber: number): number{
+    return parseInt(fullNumber.toString().slice(-1));
   }
+
+  static createFromJsonObj(obj: any){
+    const task = new Task(obj.id, obj.name, obj.priority, obj.creationDate);
+    if (obj.doneDate) {
+      task.doneDate = new Date(obj.doneDate);
+    }
+    return task;
+  }
+
+  // static generateRandom(): number{
+  //   return Math.floor(Math.random() * 1000000);
+  // }
 
 }
 
