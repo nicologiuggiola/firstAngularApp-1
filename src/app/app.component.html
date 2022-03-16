@@ -1,3 +1,14 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
-<app-footer></app-footer>
+
+<mat-drawer-container class="container" autosize>
+    <app-header></app-header>
+    <mat-drawer #drawer class="sidenav" mode="side">
+        <P>ECCO LA SIDENAV</P>
+    </mat-drawer>
+    <router-outlet></router-outlet>
+    <div class="sidenav-content">
+      <button type="button" mat-button (click)="drawer.toggle()">
+        Toggle sidenav
+      </button>
+    </div>
+    <app-footer></app-footer>
+</mat-drawer-container>

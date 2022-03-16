@@ -12,6 +12,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { DoneListComponent } from './components/wrapper/subComponents/done-list/done-list.component';
@@ -44,7 +45,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatIconModule,
     MatButtonModule,
     MatExpansionModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSidenavModule
   ],
   providers: [],
   bootstrap: [AppComponent]
