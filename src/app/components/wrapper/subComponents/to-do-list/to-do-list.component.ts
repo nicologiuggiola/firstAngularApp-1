@@ -16,7 +16,7 @@ export class ToDoListComponent implements OnInit {
 
   ngOnInit(): void {
     // this.apiS.getActiveTask().subscribe(this.filterAndParseTask);
-    this.apiS.getActiveTask().subscribe(task => this.taskList = task);
+    this.apiS.getActiveTasks().subscribe(task => this.taskList = task);
   }
 
   // filterAndParseTask(elements: any[]):void{

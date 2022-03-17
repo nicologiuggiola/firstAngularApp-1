@@ -15,7 +15,7 @@ export class DoneListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.apiS.getDoneTask().subscribe(task => this.doneList = task);
+    this.apiS.getDoneTasks().subscribe(task => this.doneList = task);
   }
 
 }
