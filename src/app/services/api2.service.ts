@@ -21,7 +21,7 @@ export class Api2Service {
 
 
   getActiveTasks(){
-    this.http.get<any[]>(this.API_URL + "?doneDate=Undefined").pipe(
+    this.http.get<Task[]>(this.API_URL + "?doneDate=null").pipe(
       // map(tasks => tasks.filter(t => t.doneDate === undefined)),
       map(tasks => tasks.map(t => this.parseTask(t)))
     ).subscribe(tasks => this.activeTasks$.next(tasks))
@@ -40,8 +40,8 @@ export class Api2Service {
   }
 
   getDoneTasks(){
-    this.http.get<any[]>(this.API_URL).pipe(
-      map(tasks => tasks.filter(t => t.doneDate !== undefined)),
+    this.http.get<Task[]>(this.API_URL).pipe(
+      map(tasks => tasks.filter(t => t.doneDate !== null)),
       map(tasks => tasks.map(t => this.parseTask(t)))
     ).subscribe(tasks => this.doneTasks$.next(tasks))
   }

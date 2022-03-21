@@ -42,6 +42,8 @@ export class Task {
     const dbObject: any = {id:this.id, name:this.name, creationDate:this.creationDate.getTime()};
     if (this.doneDate) {
       dbObject.doneDate = this.doneDate.getTime();
+    } else {
+      dbObject.doneDate = null;
     }
     return dbObject
   }
@@ -54,8 +56,6 @@ export class Task {
     const task = new Task(obj.id, obj.name, obj.priority, obj.creationDate);
     if (obj.doneDate) {
       task.doneDate = new Date(obj.doneDate);
-    } else {
-      task.doneDate = null;
     }
     return task;
   }
