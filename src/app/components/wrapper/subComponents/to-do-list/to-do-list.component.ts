@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Task } from 'src/app/model/task';
 import { ApiService } from 'src/app/services/api.service';
 import { Api2Service } from 'src/app/services/api2.service';
@@ -8,17 +8,34 @@ import { Api2Service } from 'src/app/services/api2.service';
   templateUrl: './to-do-list.component.html',
   styleUrls: ['./to-do-list.component.scss']
 })
-export class ToDoListComponent implements OnInit {
+export class ToDoListComponent implements OnInit{
 
   taskList: Task[] = [];
+
+  selectedTask?: Task;
 
   constructor(private api2S: Api2Service) {
   }
 
+
+
   ngOnInit(): void {
     // this.apiS.getActiveTask().subscribe(this.filterAndParseTask);
     // this.apiS.getActiveTasks().subscribe(task => this.taskList = task);
-    this.api2S.activeTasks$.subscribe(task => this.taskList = task);
+    this.api2S.activeTasks$.subscribe(task =>{
+      this.taskList = task;
+      if (this.taskList.length > 0) {
+        this.selectedTask = this.taskList[0];
+      }
+    });
+
+
+  }
+
+  changeSelected(){
+    if (this.taskList.length > 1) {
+      this.selectedTask = this.taskList[1];
+    }
   }
 
   // filterAndParseTask(elements: any[]):void{

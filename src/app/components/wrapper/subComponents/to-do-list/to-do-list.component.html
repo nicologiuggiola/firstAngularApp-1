@@ -1,3 +1,8 @@
 <div class="container">
   <app-task-list-element *ngFor="let pippo of taskList" [task]="pippo" (doneEvent)="taskDone($event)"></app-task-list-element>
+  <!-- <h1>Selected Task</h1>
+  <app-task-list-element *ngIf="selectedTask" [task]="selectedTask" ></app-task-list-element>
+  <button (click)="changeSelected()">Change Selected</button> -->
 </div>
+
+

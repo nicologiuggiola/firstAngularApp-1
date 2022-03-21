@@ -1,15 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.scss']
 })
-export class WelcomeComponent implements OnInit {
+export class WelcomeComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+
+  constructor() {
+    console.log("constructor")
+  }
+
+  // ngOnChanges(changes: SimpleChanges): void {
+  //     console.log("on change")
+  // }
+
 
   ngOnInit(): void {
+    console.log("on Init");
+  }
+
+
+  ngOnDestroy(): void {
+    console.log("on Destroy");
   }
 
 }

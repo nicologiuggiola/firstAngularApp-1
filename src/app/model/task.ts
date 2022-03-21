@@ -3,7 +3,7 @@ export class Task {
   name: string;
   comment?: string;
 
-  tag?: string[];
+  tags?: string[];
 
   creationDate: Date;
   doneDate?: Date | null;
@@ -44,6 +44,9 @@ export class Task {
       dbObject.doneDate = this.doneDate.getTime();
     } else {
       dbObject.doneDate = null;
+    }
+    if (this.tags && this.tags.length > 0){
+      dbObject.tags = this.tags;
     }
     return dbObject
   }

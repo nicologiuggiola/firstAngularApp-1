@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { DEFAULT_INTERPOLATION_CONFIG } from '@angular/compiler';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, first, map, Observable, of } from 'rxjs';
+import { BehaviorSubject, catchError, first, map, Observable, of, Subscription } from 'rxjs';
 import { Task } from "../model/task";
 
 @Injectable({
@@ -13,6 +14,9 @@ export class Api2Service {
   public activeTasks$ = new BehaviorSubject<Task[]>([]);
   public doneTasks$ = new BehaviorSubject<Task[]>([]);
 
+  public activeSub?: Subscription;
+  public doneSub?: Subscription;
+
   constructor(private http: HttpClient) {
     this.getActiveTasks();
     this.getDoneTasks()
@@ -20,9 +24,17 @@ export class Api2Service {
 
 
 
-  getActiveTasks(){
-    this.http.get<Task[]>(this.API_URL + "?doneDate=null").pipe(
-      // map(tasks => tasks.filter(t => t.doneDate === undefined)),
+  getActiveTasks(filter?: string){
+    if(this.activeSub){
+      this.activeSub.unsubscribe();
+    }
+
+    let filterParam = '?';
+    if (filter) {
+      filterParam += 'search='+filter
+    }
+    this.activeSub = this.http.get<Task[]>(this.API_URL + filterParam).pipe(
+      map(tasks => tasks.filter(t => t.doneDate === null)),
       map(tasks => tasks.map(t => this.parseTask(t)))
     ).subscribe(tasks => this.activeTasks$.next(tasks))
   }
@@ -39,8 +51,15 @@ export class Api2Service {
     this.activeTasks$.next(activeArray);
   }
 
-  getDoneTasks(){
-    this.http.get<Task[]>(this.API_URL).pipe(
+  getDoneTasks(filter?: string){
+    if(this.doneSub){
+      this.doneSub.unsubscribe();
+    }
+    let filterParam = '';
+    if (filter) {
+      filterParam = '?search='+filter
+    }
+    this.doneSub = this.http.get<Task[]>(this.API_URL + filterParam).pipe(
       map(tasks => tasks.filter(t => t.doneDate !== null)),
       map(tasks => tasks.map(t => this.parseTask(t)))
     ).subscribe(tasks => this.doneTasks$.next(tasks))
