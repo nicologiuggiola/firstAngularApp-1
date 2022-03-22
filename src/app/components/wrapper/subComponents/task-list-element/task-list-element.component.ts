@@ -33,6 +33,8 @@ export class TaskListElementComponent{
   //   this.checkIfIsRecent(changes['task'].currentValue)
   // }
 
+  
+
   checkIfIsRecent(task: Task){
     const now = new Date();
     const nowTimeStamp = now.getTime();

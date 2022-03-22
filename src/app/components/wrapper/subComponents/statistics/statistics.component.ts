@@ -15,6 +15,8 @@ export class StatisticsComponent implements OnInit {
   public lastDoneDate?:Date = new Date();
 
 
+
+
   constructor(private api2S: Api2Service) { }
 
   ngOnInit(): void {

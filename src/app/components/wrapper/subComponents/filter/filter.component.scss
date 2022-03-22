@@ -4,3 +4,21 @@
     max-height: 300px;
     background-color: pink;
 }
+
+.chip{
+    padding: 8px 16px;
+    background-color: white;
+    border-radius: 20px;
+    margin: 4px;
+    cursor: pointer;
+}
+
+.chip-selected{
+    background-color: purple;
+    color: white;
+}
+
+.chip-unselected{
+    background-color: white;
+    color: purple;
+}

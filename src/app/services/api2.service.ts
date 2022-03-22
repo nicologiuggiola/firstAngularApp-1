@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DEFAULT_INTERPOLATION_CONFIG } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, first, map, Observable, of, Subscription } from 'rxjs';
+import { Tag } from '../model/tag';
 import { Task } from "../model/task";
 
 @Injectable({
@@ -17,6 +18,10 @@ export class Api2Service {
   public activeSub?: Subscription;
   public doneSub?: Subscription;
 
+  public tags: Tag[] = [{name: "scuola", isSelected: false},
+                        {name: "lavoro", isSelected: false},
+                        {name: "casa", isSelected: false}];
+
   constructor(private http: HttpClient) {
     this.getActiveTasks();
     this.getDoneTasks()
@@ -24,21 +29,40 @@ export class Api2Service {
 
 
 
-  getActiveTasks(filter?: string){
+  getActiveTasks(filter?: string, tags?: string[]){
     if(this.activeSub){
       this.activeSub.unsubscribe();
     }
-
     let filterParam = '?';
     if (filter) {
       filterParam += 'search='+filter
     }
     this.activeSub = this.http.get<Task[]>(this.API_URL + filterParam).pipe(
       map(tasks => tasks.filter(t => t.doneDate === null)),
+      map(tasks => this.filterByTags(tasks, tags)),
       map(tasks => tasks.map(t => this.parseTask(t)))
     ).subscribe(tasks => this.activeTasks$.next(tasks))
   }
 
+  filterByTags(tasks: any[], tags: string[] | undefined): any[]{
+    if (!tags) {
+      return tasks;
+    } else {
+      // return tasks.filter(t => t.tags?.some((tag: string) => tags.includes(tag)))
+      const temp = []
+      for (const task of tasks) {
+        if (task.tags) {
+          for (const tag of task.tags) {
+            if(tags.includes(tag)){
+              temp.push(task);
+              break;
+            }
+          }
+        }
+      }
+      return temp;
+    }
+  }
   removeActiveTask(task: Task){
     let activeArray = this.activeTasks$.value;
     activeArray = activeArray.filter(t => t.id !== task.id);
@@ -51,7 +75,7 @@ export class Api2Service {
     this.activeTasks$.next(activeArray);
   }
 
-  getDoneTasks(filter?: string){
+  getDoneTasks(filter?: string, tags?: string[]){
     if(this.doneSub){
       this.doneSub.unsubscribe();
     }
@@ -61,6 +85,7 @@ export class Api2Service {
     }
     this.doneSub = this.http.get<Task[]>(this.API_URL + filterParam).pipe(
       map(tasks => tasks.filter(t => t.doneDate !== null)),
+      map(tasks => this.filterByTags(tasks, tags)),
       map(tasks => tasks.map(t => this.parseTask(t)))
     ).subscribe(tasks => this.doneTasks$.next(tasks))
   }
@@ -111,6 +136,9 @@ export class Api2Service {
     const task = new Task(obj.id, obj.name, obj.priority, obj.creationDate);
     if (obj.doneDate) {
       task.doneDate = new Date(obj.doneDate);
+    }
+    if (obj.tags) {
+      task.tags = obj.tags.split('#');
     }
     return task;
   }

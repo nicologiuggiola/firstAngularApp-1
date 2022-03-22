@@ -3,14 +3,40 @@
     min-height: 100px;
     background-color: gold;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    padding: 16px;
 }
+
+.form-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .example-form-field{
     margin: 0px 8px;
 }
 
 .button{
     margin-bottom: 1.34375em;
+}
+
+.chip{
+    padding: 8px 16px;
+    background-color: white;
+    border-radius: 20px;
+    margin: 4px;
+    cursor: pointer;
+}
+
+.chip-selected{
+    background-color: purple;
+    color: white;
+}
+
+.chip-unselected{
+    background-color: white;
+    color: purple;
 }

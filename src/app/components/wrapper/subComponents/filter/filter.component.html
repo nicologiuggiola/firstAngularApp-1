@@ -12,4 +12,8 @@
     <mat-icon>search</mat-icon>
 </button>
 
+<div>
+  <span class="chip" [ngClass]="tag.isSelected ? 'chip-selected' : 'chip-unselected'" *ngFor="let tag of tags" (click)="selectTag(tag)">{{tag.name}}</span>
+</div>
+
 </div>
