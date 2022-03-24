@@ -123,6 +123,7 @@ export class Api2Service {
 
 
   completeTask(task: Task): Observable<Task>{
+    console.log('complete')
     const httpOptions = {headers: new HttpHeaders({"Content-Type": "application/json"})}
     task.doneDate = new Date();
     return this.http.put<Task>(this.API_URL + "/" + task.id, task.toDatabaseModel() ,httpOptions).pipe(
@@ -138,7 +139,7 @@ export class Api2Service {
       task.doneDate = new Date(obj.doneDate);
     }
     if (obj.tags) {
-      task.tags = obj.tags.split('#');
+      task.tags = obj.tags;
     }
     return task;
   }

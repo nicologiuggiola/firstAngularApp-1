@@ -48,6 +48,7 @@ export class ToDoListComponent implements OnInit{
   // }
 
   taskDone(task: Task){
+    console.log('done')
     // this.taskList = this.taskList.filter(t => t.id !== task.id);
     // this.apiS.taskDone(task).subscribe(b => {
     //   if(!b){

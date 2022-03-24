@@ -62,8 +62,8 @@ export class TaskListElementComponent{
 
 
   taskClicked(event: any){
-    if (this.task) {
-      this.doneEvent.emit(this.task);
+    if (this._task) {
+      this.doneEvent.emit(this._task);
     }
     event.stopPropagation()
   }
