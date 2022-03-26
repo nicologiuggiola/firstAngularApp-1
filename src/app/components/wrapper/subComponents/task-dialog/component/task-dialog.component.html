@@ -1,0 +1,41 @@
+<h1 mat-dialog-title>Hi</h1>
+
+<div mat-dialog-content>
+  <div class="container">
+    <div class="form-container">
+      <mat-form-field class="example-form-field" appearance="fill">
+        <mat-label>Task Name</mat-label>
+        <input matInput type="text" [(ngModel)]="data.name">
+        <button *ngIf="data.name" matSuffix mat-icon-button aria-label="Clear" (click)="data.name=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+  
+      <mat-form-field class="example-form-field" appearance="fill">
+        <mat-label>Task Priority</mat-label>
+        <input matInput type="number" [(ngModel)]="data.priority">
+        <button *ngIf="data.priority !== 0" matSuffix mat-icon-button aria-label="Clear"
+          (click)="data.priority=0">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+  
+    <div>
+      <span class="chip" [ngClass]="tag.isSelected ? 'chip-selected' : 'chip-unselected'" *ngFor="let tag of tags" (click)="selectTag(tag)">{{tag.name}}</span>
+    </div>
+</div>
+
+
+
+
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+</div>
+
+
+
+
+</div>

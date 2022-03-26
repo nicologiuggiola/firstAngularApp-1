@@ -17,6 +17,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatInputModule } from '@angular/material/input'; 
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 import { WrapperComponent } from './components/wrapper/wrapper.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
@@ -25,10 +27,10 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
 import { DoneListComponent } from './components/wrapper/subComponents/done-list/done-list.component';
 import { FilterComponent } from './components/wrapper/subComponents/filter/filter.component';
 import { StatisticsComponent } from './components/wrapper/subComponents/statistics/statistics.component';
-import { TaskInputComponent } from './components/wrapper/subComponents/task-input/task-input.component';
 import { TaskListElementComponent } from './components/wrapper/subComponents/task-list-element/task-list-element.component';
 import { ToDoListComponent } from './components/wrapper/subComponents/to-do-list/to-do-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TaskDialogComponent } from './components/wrapper/subComponents/task-dialog/component/task-dialog.component';
 
 @NgModule({
   declarations: [
@@ -38,11 +40,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     WrapperComponent,
     ToDoListComponent,
     DoneListComponent,
-    TaskInputComponent,
     FilterComponent,
     StatisticsComponent,
     TaskListElementComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    TaskDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -51,6 +53,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule,
     MatExpansionModule,
     HttpClientModule,
     MatSidenavModule,
